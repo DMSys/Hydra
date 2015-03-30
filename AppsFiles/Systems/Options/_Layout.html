@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Options</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="toolbar">
+        <ul>
+            <li><a href="index.html">General</a></li>
+            <li class="selected"><a href="apps.html">Apps</a></li>
+            <li onclick="alert('ddd')">Test</li>
+        </ul>
+    </div>
+    <div class="toolbar" id="topMenu"></div>
+   @BodyContent
+    <script>
+        console.log('Master Page');
+
+        dHydraSession.Set('MasterPage', 'Test Value')
+
+        console.log(dHydraSession.Get('MasterPage', 'NULL Value'));
+    </script>
+
+    <script>
+    var jsonMenu = {
+        items: [
+                { text: 'General', link: 'index.html' },
+                { text: 'Apps', link: 'apps.html' },
+                { text: 'Test', link: 'index.html' }
+        ]
+    };
+    var htmlMenu = '<ul>';
+    var jsonMenuItems = jsonMenu['items'];
+    for (i = 0; i < jsonMenuItems.length; i++) {
+
+        htmlMenu += '<li onclick="alert(\''+i+'\')">' + jsonMenuItems[i]['text'] + '</li>';
+    }
+    htmlMenu += '<ul>';
+    var topMenu = document.getElementById('topMenu');
+    topMenu.innerHTML = htmlMenu;
+    </script>
+</body>
+</html>

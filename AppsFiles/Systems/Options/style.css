@@ -1,0 +1,47 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: #F0F0F0;
+}
+/* Toolbar
+*/
+.toolbar {
+    width: 100%;
+    background-color: white;
+    padding: 0px 10px;
+    border-color: #848484;
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+}
+    .toolbar ul {
+        width: 100%;
+        list-style-type: none;
+        padding: 0px;
+        margin: 0px;
+    }
+        .toolbar ul li {
+            display: inline;
+            padding: 0px;
+            margin: 0px;
+            background-color: white;
+        }
+            .toolbar ul li a {
+                text-decoration: none;
+                background-color: white;
+                padding: 0px;
+                margin: 0px;
+                padding: 10px 20px;
+                display: inline-block;
+                color: black;
+            }
+            .toolbar ul li a:hover {
+                text-decoration: none;
+                background-color: #E0E8F6;
+                color: black;
+            }
+            .toolbar ul li.selected a,
+            .toolbar ul li.selected a:hover {
+                text-decoration: none;
+                background-color: #C1D2EE;
+                color: black;
+            }
