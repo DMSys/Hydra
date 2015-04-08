@@ -16,3 +16,8 @@ var console = new function () {
         window.external.Console.Error(message);
     }
 }
+/*
+Object.addEventListener = function (event, functionValue, useCapture) {
+    console.log(event + functionValue + useCapture);
+}
+*/
