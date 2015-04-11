@@ -1,0 +1,13 @@
+html {
+	padding: 0;
+	margin: 0;
+}
+body {
+	padding: 0 10px;
+	margin: 0;
+	background-color: #0769AD;
+}
+.apps-contener {
+	width: 100%;
+	background-color: #FFF;
+}

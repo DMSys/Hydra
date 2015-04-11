@@ -1,18 +1,22 @@
 /* globals window */
 
-﻿var dHydraSystemFileReader = new function () {
-
-    this.Open = function (filePath) {
+﻿var dHydraSystemFileReader = {
+   	/*
+   	 */
+    Open : function (filePath) {
         return window.external.System.FileReader.Open(filePath);
-   ;;}
-    
-    this.ReadLine = function (connectionId) {
+   	},
+   	/*
+   	 */
+    ReadLine : function (connectionId) {
         return window.external.System.FileReader.ReadLine(connectionId);
-   ;;}
-
-    this.Close = function (connectionId) {
+   	},
+   	/*
+   	 */
+    Close : function (connectionId) {
         window.external.System.FileReader.Close(connectionId);
-   ;;};;}
+   }
+};
 
 var dHydraSystemFileWriter = new function () {
 
