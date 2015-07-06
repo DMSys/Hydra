@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test file</title>
+    <script src="file:///D:\DProjects\DMSys.SourceForge\Hydra\Hydra.JScripts\dHydra-1.0.1.js" type="text/javascript"></script>
+    <script src="D:\DProjects\DMSys.SourceForge\Hydra\Hydra.JScripts\dHydra-1.0.1.js" type="text/javascript"></script>
+    <script>
+        var dHydra = new function () {
+            var _IO = null;
+
+            this.IO = function () {
+                console.log('IO');
+                if (_IO == null) {
+                    console.log('dHydraIO');
+                    _IO = new dHydraIO();
+                }
+                return _IO;
+            }
+
+            this.IO22 = function () {
+
+                console.log('IO22');
+                if (_IO == null) {
+                    console.log('dHydraIO22');
+                    _IO = new dHydraIO();
+                }
+                return _IO;
+            }
+        }
+
+        function start() {
+            var appsDataPath = 'D:\\DProjects\\GitHubProjects\\Hydra\\AppsData\\Tutorials\\';
+            var filePath = appsDataPath + 'test.txt';
+
+            var $IO = dHydra.IO();
+            // var $IO22 = dHydra.IO;
+            var isExists = $IO.Path.FileExists(filePath);
+            
+            console.log('Exists: ' + isExists);
+        }
+
+        function start_1() {
+
+            var appsDataPath = 'D:\\DProjects\\GitHubProjects\\Hydra\\AppsData\\Tutorials\\';
+            var filePath = appsDataPath + 'test.txt';
+
+            var isExists = $IO.Path.FileExists(filePath);
+            if (isExists) {
+                document.getElementById("result1").innerHTML =
+                    $IO.Path.GetFileName(filePath) + ' - ' +
+                    $IO.Path.GetFileNameWithoutExtension(filePath) + ' - ' +
+                    $IO.Path.GetExtension(filePath);
+
+                $IO.Path.FileCopy(filePath, appsDataPath + 'test_copy.txt');
+                if (!$IO.Path.FileExists(appsDataPath + 'test_move.txt')) {
+                    $IO.Path.FileMove(appsDataPath + 'test_copy.txt', appsDataPath + 'test_move.txt');
+                }
+                $IO.Path.FileDelete(appsDataPath + 'test_move.txt');
+            }
+            else {
+                document.getElementById("result1").innerHTML = isExists;
+            }
+
+            /*
+            var intArray = new Array(20, 50, 53, 67);
+            document.getElementById("result1").innerHTML = intArray[0] + ' - ' + intArray[2];
+
+            intArrayRs = dHydra.System.TestArray(intArray);
+            document.getElementById("result2").innerHTML = intArray[0] + ' - ' + intArray[2];
+            */
+            /*
+            var fWriter = new FileWriter('D:\\DProjects\\DMSys.SourceForge\\Hydra\\LocalApps\\Demo\\File\\Test.txt');
+            fWriter.Write('test: ');
+            fWriter.WriteLine('FileWriter 123');
+            fWriter.WriteLine('test: FileReader');
+            fWriter.Flush();
+            fWriter.Close();
+
+            var fReader = new FileReader('D:\\DProjects\\DMSys.SourceForge\\Hydra\\LocalApps\\Demo\\File\\Test.txt');
+
+            var fileLine = '';
+            while (fileLine = fReader.ReadLine()) {
+                document.getElementById("result1").innerHTML += fileLine + ' - ';
+            }
+            fReader.Close();
+            */
+        }
+    </script>
+
+    <script>
+        /*
+        function testJson() {
+            var text = '{ "employees" : [' +
+'{ "firstName":"John" , "lastName":"Doe" },' +
+'{ "firstName":"Anna" , "lastName":"Smith" },' +
+'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+            var obj = JSON.parse(text);
+
+            alert("ok");
+        }
+        */
+    </script>
+</head>
+<body onload="start()">
+    <div id="sqlCommand" style="border:1px solid black;"></div>
+    <div id="result1" style="border:1px solid black;"></div>
+    <div id="result2" style="border:1px solid black;"></div>
+    <div id="linqEx" style="border:1px solid black;"></div>
+    <div>
+        <input type="button" onclick="testFile()" value="Test File" />
+    </div>
+</body>
+</html>

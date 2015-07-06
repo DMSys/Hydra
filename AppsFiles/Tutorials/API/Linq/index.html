@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test linq</title>
+    <script src="../../../Hydra.Apps/Hydra.Apps/Scripts/dHydra.Data.Linq-1.1.js" type="text/javascript"></script>
+    <script>
+        function apps(tableAlias) {
+            /* debugger; */
+            this._Name = 'apps';
+            this._Alias = tableAlias;
+
+            this.id = new LinqTableField('id', this._Alias);
+            this.apps_type_id = new LinqTableField('apps_type_id', this._Alias);
+            this.application_id = new LinqTableField('application_id', this._Alias);
+            this.processor_id = new LinqTableField('processor_id', this._Alias);
+            this.is_active = new LinqTableField('is_active', this._Alias);
+            this.executable_path = new LinqTableField('executable_path', this._Alias);
+            this.ins_date = new LinqTableField('ins_date', this._Alias);
+            this.entity_id = new LinqTableField('entity_id', this._Alias);
+            this.expiration_date = new LinqTableField('expiration_date', this._Alias);
+        }
+
+        function entity(tableAlias) {
+            /* debugger; */
+            this._Name = 'entity';
+            this._Alias = tableAlias;
+
+            this.id = new LinqTableField('id', this._Alias);
+            this.entity_name = new LinqTableField('entity_name', this._Alias);
+        }
+
+        var tApps = new apps('a');
+        var tEntity = new entity('e');
+
+        function start()
+        {
+            // http://bg.cdnjs.com/libraries/json2
+            // https://github.com/douglascrockford/JSON-js/blob/master/json2.js
+
+            var con = new LinqConnection(linqDatabase.SQLite, 'Data Source=D:\\DProjects\\Utilities\\public_html\\db\\apps.db;Version=3;');
+            con.Open();
+
+            var q = new LinqQuery(con);
+
+            q.select( tApps.id
+                    , tApps.processor_id
+                    , tEntity.entity_name
+                    , tApps.expiration_date
+                    );
+            q.from(tApps, tEntity);
+            q.where(
+                linqCondition.Equality(tApps.entity_id, tEntity.id)
+                );
+
+            var jsonCommand = q.toJsonCommand();
+            document.getElementById('sqlCommand').innerHTML = jsonCommand
+
+            try {
+                // Test 1
+                var jsonResult = q.execute();
+                var printText = '';
+                for (var k in jsonResult.data) {
+                    printText += ', ' + jsonResult.data[k].processor_id;
+                }
+                document.getElementById('linqResult').innerHTML = printText;
+
+                // Test 2
+                var jsonResult2 = q.execute(con);
+                var printText2 = '';
+                for (var k in jsonResult2.data) {
+                    printText2 += ', ' + jsonResult2.data[k].processor_id;
+                }
+                document.getElementById('linqResult2').innerHTML = printText2;
+            }
+            catch (ex) {
+                document.getElementById('linqEx').innerHTML = 'Ex: ' + ex.message;;
+            }
+            con.Close();
+        }
+    </script>
+
+    <script>
+        function testJson() {
+            var text = '{ "employees" : [' +
+'{ "firstName":"John" , "lastName":"Doe" },' +
+'{ "firstName":"Anna" , "lastName":"Smith" },' +
+'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+            var obj = JSON.parse(text);
+
+            alert("ok");
+        }
+    </script>
+</head>
+<body onload="start()">
+    <div id="sqlCommand" style="border:1px solid black;"></div>
+    <div id="linqResult" style="border:1px solid black;"></div>
+    <div id="linqResult2" style="border:1px solid black;"></div>
+    <div id="linqEx" style="border:1px solid black;"></div>
+    <div>
+        <input type="button" onclick="testJson()" value="Test JSON" />
+    </div>
+</body>
+</html>

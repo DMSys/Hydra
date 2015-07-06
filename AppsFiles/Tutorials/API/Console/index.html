@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo: Console</title>
+    <script>
+        function MakeError() {
+            someObject.DoSomething();
+        }
+    </script>
+</head>
+<body onload="start()">
+    <div style="border:1px solid black;">
+        <input type="button" onclick="MakeError()" value="Create an error"><br />
+        <input type="button" onclick="console.log('test console.log')" value="Console Log"><br />
+        <input type="button" onclick="console.info('test console.info')" value="Console Info"><br />
+        <input type="button" onclick="console.warn('test console.warn')" value="Console Warn"><br />
+        <input type="button" onclick="console.debug('test console.debug')" value="Console Debug"><br />
+        <input type="button" onclick="console.error('test console.error')" value="Console Error"><br />
+    </div>
+</body>
+</html>
